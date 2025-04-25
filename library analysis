@@ -1,0 +1,35 @@
+create database if not exists library;
+use library;
+-- members who have issued more than 1 book 
+select issued_member_id,count(issued_id) from issued_status group by issued_member_id having count(issued_id)>1;
+
+-- Each book and number of times it issiued
+create table book_count as
+select books.book_title , books.isbn, count(issued_status.issued_id)from books 
+join issued_status on books.isbn = issued_status.issued_book_isbn
+ group by books.book_title ,  books.isbn;
+ 
+ --  retrive all books in specific categogy
+select category ,count( book_title) from books group by category;
+
+-- total rental income by category
+select category, sum(rental_price) from books group by category;
+
+-- list members registered in the last 100 days
+insert into members (member_id, member_name, member_address, reg_date)value
+("C118", "aman", "145 main st", 2025-02-02),
+("C119", "amit", "147 main st", 2025-02-02);
+select * from members where reg_date >= current_date - interval "180 days";
+
+-- employees with there branch manager name and their branch details
+select employees.emp_id, employees.emp_name as manager, branch.branch_id from employees
+join branch on employees.branch_id = branch.branch_id 
+join employees as e on branch.manager_id =e.emp_id;
+
+-- create a table of books with rental price above a certain threshold 7 usd
+create table abc as
+select * from books where rental_price >7;
+
+-- retrrive the book which is not returned
+select distinct issued_status.issued_book_name from issued_status left join return_status
+ on issued_status.issued_id = return_status.issued_id where return_status.return_id is null;
