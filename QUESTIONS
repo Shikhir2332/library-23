@@ -1,0 +1,9 @@
+1. Create database library
+2.Members who issued more than 1 book
+3. Each book and number of time it was issued
+4.Retrive all books in specific category
+5.total income from each book category
+6.list of members joined in past 100 days
+7.Employess with their branch manager name and their branch details
+8.Create a table of books with rental price above 7 usd
+9.Retrive the books which are not returned
